@@ -1,1 +1,4 @@
 
+Backend - npm run server 
+
+Frontend - npm start 
