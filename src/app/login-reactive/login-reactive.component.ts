@@ -1,58 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { createPasswordStrengthValidator } from '../validator/password-strength.validator';
-
+import { Component, OnInit } from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { createPasswordStrengthValidator } from "../validator/password-strength.validator";
 
 @Component({
-  selector: 'login',
-  templateUrl: './login-reactive.component.html',
-  styleUrls: ['./login-reactive.component.css']
+  selector: "login",
+  templateUrl: "./login-reactive.component.html",
+  styleUrls: ["./login-reactive.component.css"],
 })
 export class LoginReactiveComponent implements OnInit {
-  
-  
-  
-
   form = this.fb.group({
-    
-    email:this.fb.nonNullable.control("",{
-      validators:[Validators.required,Validators.email],
-      updateOn:'blur'
+    email: this.fb.nonNullable.control("", {
+      validators: [Validators.required, Validators.email],
+      updateOn: "blur",
     }),
-    password: ['',[ Validators.required, 
-      Validators.minLength(8),
-      createPasswordStrengthValidator()]]
+    password: [
+      "",
+      [
+        Validators.required,
+        Validators.minLength(8),
+        createPasswordStrengthValidator(),
+      ],
+    ],
   });
 
+  constructor(private fb: FormBuilder) {}
 
+  ngOnInit() {}
 
-  constructor(private fb:FormBuilder) {
-
-
+  get email() {
+    return this.form.controls["email"];
   }
 
-  ngOnInit() {
-
+  get password() {
+    return this.form.controls["password"];
   }
 
-
-  get email(){
-    return this.form.controls['email'];
+  login() {
+    const formValue = this.form.value;
   }
-
-  get password(){
-    return this.form.controls['password'];
-  }
-
-
-  login(){
-   const formValue =  this.form.value;
-
-  }
-  reset(){
+  reset() {
     this.form.reset();
     console.log(this.form.value);
-    
   }
-
 }
